@@ -1,0 +1,56 @@
+---
+title: "Few Layers, Many Rows"
+editor: visual
+format:
+  html:
+    code-fold: true
+    code-line-numbers: true
+
+execute:
+  keep-md: true
+---
+
+
+```{r, include=FALSE}
+library(nycflights13)
+library(tidyverse)
+library(ggplot2)
+library(plotly)
+library(dplyr)
+library(pander)
+
+hist(flights$air_time, ylab="Frequency", xlab="Air Times" , main="Frequency of Actual Air Times", col="skyblue")
+```
+
+## Visualizations
+
+The first visualization is the air times from the flights data set. These range from 20 to 695 minutes. I chose to put it into a histogram to better display the variation of the air times across the flights. Although a more simple graphic, it shows the density of the varied air times. The histogram below displays the actual distance of the flights within the dataset. However in this graphic, the trends are further seen in the frequency of distances and all of the dips and peaks can be further interpreted and understood.
+
+```{r}
+plot_ly(flights, x=~distance, type="histogram") |>
+  layout(title = 'Frequency of Actual Distance', plot_bgcolor = "#e5ecf6",  xaxis = list(title = 'Distance'), yaxis = list(title = 'Frequency') ) |>
+  layout(xaxis = list(range = c(0,3000)))
+```
+
+## Bivariate Summary
+
+In the visualization below, both of the columns used above are shown (distance and air time). This is to show the clear correlation between both of these columns. The correlation coefficient is also shown below to be 0.99 which portrays a strong correlation, as distance increases so does the air time of the flight. The line in the scatterplot is shown to further display this coefficient and although not all of the values are perfectly aligned on the line of regression, the scatterplot still displays a strong positive correlation.
+
+```{r}
+mymod <- lm(distance ~ air_time, data=flights)
+
+plot(distance ~ air_time, data=flights, col='blue', main='Correlation of Distance & Air Time', ylab='Distance', xlab='Air Time', xlim=c(0,1000), ylim=c(0,8000))
+b0 <- mymod$coefficients[1]
+b1 <- mymod$coefficients[2]
+abline(b0,b1,col="skyblue")
+
+flights2 <- flights |>
+  drop_na()
+cor(flights2$distance, flights2$air_time)%>%
+  pander()
+
+```
+
+
+
+
