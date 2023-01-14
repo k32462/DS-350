@@ -1,0 +1,44 @@
+---
+title: "Gapminder"
+editor: visual
+format:
+  html:
+    code-fold: true
+    code-line-numbers: true
+
+execute:
+  keep-md: true
+---
+
+## Gapminder Code
+
+```{r, include=FALSE, warning=FALSE}
+library(gapminder)
+library(tidyverse)
+library(dplyr)
+```
+
+```{r}
+thegap <- gapminder |>
+  filter(country != 'Kuwait') |>
+ mutate(lifeExp = as.numeric(lifeExp)) |>
+ mutate(gdpPercap = as.numeric(gdpPercap)) |>
+  mutate(`Population (100k)` = pop/100000 )
+
+# This was to filter the data to better fit the visualization
+```
+
+```{r}
+ggplot(data = thegap, 
+       mapping = aes(x=lifeExp, 
+                     y = gdpPercap,
+                     color = continent,
+                     size = `Population (100k)`)) +
+  geom_point() + 
+  labs(x= "Life Expectancy (Years)", # changes the name of the x-axis
+       y = "GDP per Capita") +  # changes the name of the y-axis
+  theme_bw() +
+  facet_wrap(vars(as.factor(year))) + # These lines splits the chart into several bars
+  facet_grid(. ~ year) + # this changes the charts to be horizontal
+  scale_y_continuous(trans = "sqrt") # this adjusts the scale of the y-axis
+```
