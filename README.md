@@ -1,4 +1,11 @@
-# Notebook for DS 350
+# Week 2 Notes
 
+1) What is the average mile time among men?
 
-This is a line from RStudio. Hey everyone! My name is Kenny Ceron and I'm from Los Angeles, California. This is my 4th semester at BYUI as a Data Science major. I love all things music, I play piano, guitar, percussion, and I've been in 3 A Cappella groups. I also love traveling! My favorite place that I've traveled to is Paris, France!
+2) Which marital status group uses the treadmill more? (Married or Single) 
+
+3) Does income level influence the treadmill usage time?
+
+4) Do those who went to college and those who graduated high school vary in fitness levels?
+
+Source: https://www.kaggle.com/datasets/saurav9786/cardiogoodfitness (dataset from Cardio Good Fitness)
